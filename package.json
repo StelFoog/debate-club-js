@@ -1,0 +1,11 @@
+{
+  "name": "debate-club",
+  "version": "0.1.0",
+  "description": "Argument handling made easy",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "Samuel H.E. Larsson",
+  "license": "MIT"
+}

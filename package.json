@@ -7,5 +7,17 @@
     "test": "node test.js"
   },
   "author": "Samuel H.E. Larsson",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StelFoog/debate-club-js.git"
+  },
+  "keywords": [
+    "arguments",
+    "argument handler"
+  ],
+  "bugs": {
+    "url": "https://github.com/StelFoog/debate-club-js/issues"
+  },
+  "homepage": "https://github.com/StelFoog/debate-club-js#readme"
 }

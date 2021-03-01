@@ -62,7 +62,6 @@ function dc(define) {
     } else {
 				// Handle normal flag
 				const longflag = e.substr(2).split("=");
-				console.log(longflag);
 				if (!define[longflag[0]]) {
 					success = false;
 					flags[longflag[0]] = true;

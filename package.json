@@ -2,7 +2,7 @@
   "name": "debate-club",
   "version": "0.1.0",
   "description": "Argument handling made easy",
-  "main": "index.js",
+  "main": "debateClub.js",
   "scripts": {
     "test": "node test.js"
   },
@@ -19,5 +19,5 @@
   "bugs": {
     "url": "https://github.com/StelFoog/debate-club-js/issues"
   },
-  "homepage": "https://github.com/StelFoog/debate-club-js#readme"
+  "homepage": "https://github.com/StelFoog/debate-club-js"
 }

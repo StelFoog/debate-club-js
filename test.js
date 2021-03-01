@@ -1,21 +1,25 @@
-const dc = require("./index");
+const dc = require("./debateClub");
 
-const l = dc({
-    test: {
-        alias: "t"
-    },
-    sten: {
-        alias: "s",
-        boolean: false
+const res = dc({
+    list: {
+        alias: 'l',
     },
     all: {
-        alias: "a"
+        alias: 'a',
+        boolean: true,
     },
-    blad: {
-        alias: "b",
+    in: {
+        boolean: false,
+    },
+    land: {},
+    stone: {
+        alias: 's',
         boolean: false
     }
 });
-console.log(l);
-console.log(dc.flags())
-// console.log("Let's see", dc.get("Hej"));
+console.log(res);
+console.log(dc('list'));
+console.log(dc('all'));
+console.log(dc('in'));
+console.log(dc('land'));
+console.log(dc('stone'));

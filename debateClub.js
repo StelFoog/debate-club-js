@@ -8,7 +8,7 @@ let fullArgs = [];
 function dc(define) {
 	let success = true;
   const fullArgs = process.argv;
-	if(typeof define === string) return get(define);
+	if(typeof define === "string") return get(define);
   if (!define || typeof define !== "object") return fullArgs;
 	const keys = Object.keys(define);
 
@@ -46,6 +46,7 @@ function dc(define) {
 						flagNeedsVal.forEach(f => {
 							flags[f] = val;
 						});
+						flagNeedsVal = [];
 						break;
 					}
 					for(j = 0; j < keys.length; j++) {

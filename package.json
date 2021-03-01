@@ -1,6 +1,6 @@
 {
   "name": "debate-club",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Argument handling made easy",
   "main": "debateClub.js",
   "scripts": {

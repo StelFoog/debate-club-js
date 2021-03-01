@@ -14,7 +14,7 @@ const dc = require("debate-club");
 
 const res = dc({
 	list: {
-		alias: 'l'.
+		alias: 'l',
 	},
 	all: {
 		alias: 'a',

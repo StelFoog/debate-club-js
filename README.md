@@ -1,10 +1,10 @@
-# Debate Club JS
+# Debate Club
 
-Created to be a simple, light-weight argument handler.
+A simple, light-weight argument parser for node.js.
 
 ## How to use
 
-To start we send in what flags we wish to accept in an object where every acceptable flag is listed as an object. These objects can accept an alias letter and and if the flag is boolean (defaults to `true`).
+To start we send in what flags we wish to accept in an object where every acceptable flag is listed as an object. These objects can accept an alias letter and if the flag is boolean (defaults to `true`).
 
 The aliases define what "miniflags" which are accepted.
 
@@ -40,14 +40,14 @@ Any undefined (long form) flags will be saved and assumed to be boolean, unless 
 
 Methods:
 
-| Method               | Description                                                            | Return value                                                                                                                                                                                                                                                                                        |
-| -------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `dc(`*object*`)`     | Initialises the program taking a definition of what flags are expected | Returns an object where the key `success` is a boolean that returns `false` if any undefined input is recived and `true` otherwise. The `error` key is an array that contains all unexpected arguments. And key `args` returns an in-order array of all args that are not flags or values of flags. |
-| `dc(`*string*`)`     | Same as `dc.get(`*string*`)`                                           | Returns value of the flag *string* or `true` if it has been set or `null` if not                                                                                                                                                                                                                    |
-| `dc.get(`*string*`)` | Method to get value of flag *string*                                   | Returns value of the flag *string* or `true` if it has been set or `null` if not                                                                                                                                                                                                                    |
-| `dc.args()`          | Gives all arguments that aren't flags or values thereof                | Returns an in-order array of all args that are not flags or values of flags                                                                                                                                                                                                                         |
-| `dc.args('full')`    | Gives all arguments                                                    | Returns an in-order list of all arguments given                                                                                                                                                                                                                                                     |
-| `dc.flags()`         | Gives the entire internal object made to track flags                   | Returns an object where the keys are the flags found in the arguments along with their values                                                                                                                                                                                                       |
+| Method               | Description                                                             | Return value                                                                                                                                                                                                                                                                                        |
+| -------------------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `dc(`*object*`)`     | Initialises the program taking a definition of what flags are expected. | Returns an object where the key `success` is a boolean that returns `false` if any undefined input is recived and `true` otherwise. The `error` key is an array that contains all unexpected arguments. And key `args` returns an in-order array of all args that are not flags or values of flags. |
+| `dc(`*string*`)`     | Same as `dc.get(`*string*`)`.                                           | Returns value of the flag *string* or `true` if it has been set or `null` if not.                                                                                                                                                                                                                   |
+| `dc.get(`*string*`)` | Method to get value of flag *string*.                                   | Returns value of the flag *string* or `true` if it has been set or `null` if not.                                                                                                                                                                                                                   |
+| `dc.args()`          | Gives all arguments that aren't flags or values thereof.                | Returns an in-order array of all args that are not flags or values of flags.                                                                                                                                                                                                                        |
+| `dc.args('full')`    | Gives all arguments.                                                    | Returns an in-order list of all arguments given.                                                                                                                                                                                                                                                    |
+| `dc.flags()`         | Gives the entire internal object made to track flags.                   | Returns an object where the keys are the flags found in the arguments along with their values.                                                                                                                                                                                                      |
 |                      |
 
 **Note:** The `success` key is depricated and will be phased out, to check for issues with given arguments use the `error` key instead.

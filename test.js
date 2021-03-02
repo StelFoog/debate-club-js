@@ -17,9 +17,11 @@ const res = dc({
         boolean: false
     }
 });
+
 console.log(res);
 console.log(dc('list'));
 console.log(dc('all'));
 console.log(dc('in'));
 console.log(dc('land'));
 console.log(dc('stone'));
+console.log(dc('nop'));

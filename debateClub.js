@@ -1,15 +1,18 @@
 let flags = {}
 let args = [];
 let fullArgs = [];
+let success;
+let error;
 
 
 // define is an object where each key represents an accepted flag
 // 
 function dc(define) {
-	let success = true;
-  const fullArgs = process.argv;
 	if(typeof define === "string") return get(define);
   if (!define || typeof define !== "object") return fullArgs;
+	success = true;
+	error = [];
+  const fullArgs = process.argv;
 	const keys = Object.keys(define);
 
 	let i, j;
@@ -31,12 +34,15 @@ function dc(define) {
 					if (define[keys[i]].alias === miniflag.charAt(0)) {
 						if (define[keys[i]].boolean === false) {
 							if (miniflag.charAt(1) === "=") flags[keys[i]] = miniflag.substr(2);
-							else flagNeedsVal = [keys[i]];
+							else flagNeedsVal.push(keys[i]);
 						} else flags[keys[i]] = true;
 						break;
 					}
 				}
-				if(i >= keys.length) success = false;
+				if(i >= keys.length) {
+					success = false;
+					error.push(`Miniflag "${miniflag.charAt(0)}" undefined`);
+				}
 			} else {
 				// Handle multiple miniflags
 				// Go though all miniflags
@@ -56,7 +62,10 @@ function dc(define) {
 							break;
 						}
 					}
-					if(j >= keys.length) success = false;
+					if(j >= keys.length) {
+						success = false;
+						error.push(`Miniflag "${miniflag.charAt(i)}" undefined`);
+					}
 				}
 			}
     } else {
@@ -64,16 +73,18 @@ function dc(define) {
 				const longflag = e.substr(2).split("=");
 				if (!define[longflag[0]]) {
 					success = false;
-					flags[longflag[0]] = true;
+					error.push(`Longflag "${longflag[0]}" undefined`);
+					if(longflag[1]) flags[longflag[0]] = longflag[1];
+					else flags[longflag[0]] = true;
 				} else if (define[longflag[0]].boolean === false) {
 					if(longflag[1]) flags[longflag[0]] = longflag[1];
-					else flagNeedsVal = [longflag[0]];
+					else flagNeedsVal.push(longflag[0]);
 				} else {
 					flags[longflag[0]] = true;
 				}
     }
   });
-	return {success, args};
+	return {success, error, args};
 }
 
 function get (flag) {

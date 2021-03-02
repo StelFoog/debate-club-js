@@ -1,6 +1,6 @@
 {
   "name": "debate-club",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Argument handling made easy",
   "main": "debateClub.js",
   "scripts": {
@@ -13,8 +13,12 @@
     "url": "git+https://github.com/StelFoog/debate-club-js.git"
   },
   "keywords": [
-    "arguments",
-    "argument handler"
+    "argument",
+    "parser",
+    "args",
+    "command",
+    "flag",
+    "cli"
   ],
   "bugs": {
     "url": "https://github.com/StelFoog/debate-club-js/issues"

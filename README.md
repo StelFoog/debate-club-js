@@ -1,5 +1,10 @@
 # Debate Club
 
+![npm](https://img.shields.io/npm/v/debate-club)
+![npm bundle size](https://img.shields.io/bundlephobia/min/debate-club)
+![GitHub last commit](https://img.shields.io/github/last-commit/StelFoog/debate-club-js)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/StelFoog/debate-club-js/Node.js%20CI?label=tests)
+
 A simple, light-weight argument parser for node.js.
 
 ## How to use

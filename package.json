@@ -1,10 +1,10 @@
 {
   "name": "debate-club",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Argument handling made easy",
   "main": "debateClub.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "author": "Samuel H.E. Larsson",
   "license": "MIT",
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/StelFoog/debate-club-js/issues"
   },
-  "homepage": "https://github.com/StelFoog/debate-club-js"
+  "homepage": "https://github.com/StelFoog/debate-club-js",
+  "devDependencies": {
+    "mocha": "^8.3.0"
+  }
 }

@@ -1,9 +1,9 @@
 # Debate Club
 
-![npm](https://img.shields.io/npm/v/debate-club)
-![npm bundle size](https://img.shields.io/bundlephobia/min/debate-club)
-![GitHub last commit](https://img.shields.io/github/last-commit/StelFoog/debate-club-js)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/StelFoog/debate-club-js/Node.js%20CI?label=tests)
+[![npm](https://img.shields.io/npm/v/debate-club)](https://www.npmjs.com/package/debate-club)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/debate-club)](https://www.npmjs.com/package/debate-club)
+[![GitHub last commit](https://img.shields.io/github/last-commit/StelFoog/debate-club-js)](https://github.com/StelFoog/debate-club-js)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/StelFoog/debate-club-js/Node.js%20CI?label=tests)](https://github.com/StelFoog/debate-club-js/actions)
 
 A simple, light-weight argument parser for node.js.
 

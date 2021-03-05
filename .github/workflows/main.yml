@@ -14,13 +14,33 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "test"
-  test:
-    name: Test
+  linux-test:
+    name: Linux-test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         node_version: [10.x, 12.x, 14.x, 15.x]
-        os: [ubuntu-latest, macOS-latest]
+        os: [ubuntu-latest]
+        
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node_version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node_version }}
+        
+    - name: npm install and test
+      run: |
+        npm install
+        npm test
+        
+  mac-test:
+    name: Mac-test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: [10.x, 15.x]
+        os: [macOS-latest]
         
     steps:
     - uses: actions/checkout@v2

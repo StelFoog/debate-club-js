@@ -7,35 +7,21 @@ let error = [];
 // define is an object where each key represents an accepted flag
 function dc(define) {
 	if (typeof define === 'string') return get(define);
-	// if (typeof define === 'string') {
-	// 	if (args.length || get(define)) return get(define);
-	// 	for (let i = 0; i < process.argv.length; i++) {
-	// 		const e = process.argv[i];
-	// 		if (e.charAt(0) === '-' && e.charAt(1) === '-') {
-	// 			const f = e.substr(2).split('=');
-	// 			if (f[0] === define) {
-	// 				if (f[1]) flags[f[0]] = f[1];
-	// 				else flags[f[0]] = true;
-	// 				break;
-	// 			}
-	// 		}
-	// 	}
-	// 	return get(define);
-	// }
 	if (!define || typeof define !== 'object') return fullArgs;
 	const fullArgs = process.argv;
 	const keys = Object.keys(define);
 
 	let i, j;
 	let flagNeedsVal = [];
-	fullArgs.forEach((e) => {
+	fullArgs.forEach((e, idx) => {
 		if (e.charAt(0) !== '-') {
 			if (flagNeedsVal.length) {
 				flagNeedsVal.forEach((f) => {
 					flags[f] = e;
 				});
 				flagNeedsVal = [];
-			} else args.push(e);
+			} else if (!(idx < 1 && e === process.execPath) && !(idx < 2 && e === require.main.filename))
+				args.push(e);
 		} else if (e.charAt(1) !== '-') {
 			// Handle miniflag(s)
 			const miniflag = e.substr(1);
@@ -108,10 +94,6 @@ function dc(define) {
 }
 
 function get(flag) {
-	// if (!flag) return null;
-	// if (flags[flag]) return flags[flag];
-	// else return null;
-
 	if (!flag) return null;
 	if (args.length && !flags[flag]) return null;
 	if (flags[flag]) return flags[flag];

@@ -42,32 +42,36 @@ describe('do–init tests without errors', () => {
 		setArgs('--land');
 		init();
 		assert.strictEqual(dc('land'), true);
+		assert.strictEqual(dc('list'), null);
 		assert.strictEqual(res.error.length, 0);
-		assert.deepStrictEqual(res.args, execArgs);
+		assert.strictEqual(res.args.length, 0);
 	});
 
 	it('node test -a', () => {
 		setArgs('-a');
 		init();
 		assert.strictEqual(dc('all'), true);
+		assert.strictEqual(dc('list'), null);
 		assert.strictEqual(res.error.length, 0);
-		assert.deepStrictEqual(res.args, execArgs);
+		assert.strictEqual(res.args.length, 0);
 	});
 
 	it('node test --in 10', () => {
 		setArgs('--in 10');
 		init();
 		assert.strictEqual(dc('in'), '10');
+		assert.strictEqual(dc('list'), null);
 		assert.strictEqual(res.error.length, 0);
-		assert.deepStrictEqual(res.args, execArgs);
+		assert.strictEqual(res.args.length, 0);
 	});
 
 	it('node test --in=10', () => {
 		setArgs('--in=10');
 		init();
 		assert.strictEqual(dc('in'), '10');
+		assert.strictEqual(dc('list'), null);
 		assert.strictEqual(res.error.length, 0);
-		assert.deepStrictEqual(res.args, execArgs);
+		assert.strictEqual(res.args.length, 0);
 	});
 
 	it('node test --stone --in common', () => {
@@ -75,8 +79,9 @@ describe('do–init tests without errors', () => {
 		init();
 		assert.strictEqual(dc('in'), 'common');
 		assert.strictEqual(dc('stone'), 'common');
+		assert.strictEqual(dc('list'), null);
 		assert.strictEqual(res.error.length, 0);
-		assert.deepStrictEqual(res.args, execArgs);
+		assert.strictEqual(res.args.length, 0);
 	});
 
 	it('node test -las round', () => {
@@ -85,15 +90,16 @@ describe('do–init tests without errors', () => {
 		assert.strictEqual(dc('list'), true);
 		assert.strictEqual(dc('all'), true);
 		assert.strictEqual(dc('stone'), 'round');
+		assert.strictEqual(dc('land'), null);
 		assert.strictEqual(res.error.length, 0);
-		assert.deepStrictEqual(res.args, execArgs);
+		assert.strictEqual(res.args.length, 0);
 	});
 
 	it('node test mask', () => {
 		setArgs('mask');
 		init();
 		assert.strictEqual(res.error.length, 0);
-		assert.deepStrictEqual(res.args, [...execArgs, 'mask']);
+		assert.deepStrictEqual(res.args, ['mask']);
 	});
 
 	it('node test --in -sal=strict out mind', () => {
@@ -103,8 +109,9 @@ describe('do–init tests without errors', () => {
 		assert.strictEqual(dc('all'), true);
 		assert.strictEqual(dc('in'), 'out');
 		assert.strictEqual(dc('stone'), 'strict');
+		assert.strictEqual(dc('land'), null);
 		assert.strictEqual(res.error.length, 0);
-		assert.deepStrictEqual(res.args, [...execArgs, 'mind']);
+		assert.deepStrictEqual(res.args, ['mind']);
 	});
 
 	it('node test -s --land ball --in round stealth -la close', () => {
@@ -116,7 +123,7 @@ describe('do–init tests without errors', () => {
 		assert.strictEqual(dc('land'), true);
 		assert.strictEqual(dc('stone'), 'ball');
 		assert.strictEqual(res.error.length, 0);
-		assert.deepStrictEqual(res.args, [...execArgs, 'stealth', 'close']);
+		assert.deepStrictEqual(res.args, ['stealth', 'close']);
 	});
 });
 
@@ -136,23 +143,25 @@ describe('do-init tests with errors', () => {
 		init();
 		assert.strictEqual(dc('nop'), true);
 		assert.deepStrictEqual(res.error, ['Longflag "nop" undefined']);
-		assert.deepStrictEqual(res.args, [...execArgs, 'pop']);
+		assert.deepStrictEqual(res.args, ['pop']);
 	});
 
 	it('node test -ys rock', () => {
 		setArgs('-ys rock');
 		init();
 		assert.strictEqual(dc('stone'), 'rock');
+		assert.strictEqual(dc('list'), null);
 		assert.deepStrictEqual(res.error, ['Miniflag "y" undefined']);
-		assert.deepStrictEqual(res.args, execArgs);
+		assert.strictEqual(res.args.length, 0);
 	});
 
 	it('node test --nop=pop -i mode', () => {
 		setArgs('--nop=pop -i mode');
 		init();
 		assert.strictEqual(dc('nop'), 'pop');
+		assert.strictEqual(dc('list'), null);
 		assert.deepStrictEqual(res.error, ['Longflag "nop" undefined', 'Miniflag "i" undefined']);
-		assert.deepStrictEqual(res.args, [...execArgs, 'mode']);
+		assert.deepStrictEqual(res.args, ['mode']);
 	});
 
 	it('node test -la=pop', () => {
@@ -160,8 +169,9 @@ describe('do-init tests with errors', () => {
 		init();
 		assert.strictEqual(dc('list'), true);
 		assert.strictEqual(dc('all'), true);
+		assert.strictEqual(dc('land'), null);
 		assert.deepStrictEqual(res.error, ['Strange equals-sign with miniflag collection la']);
-		assert.deepStrictEqual(res.args, execArgs);
+		assert.strictEqual(res.args.length, 0);
 	});
 });
 
@@ -184,10 +194,12 @@ describe('no-init tests', () => {
 	it('node test --all', () => {
 		setArgs('--all');
 		assert.strictEqual(dc('all'), true);
+		assert.strictEqual(dc('list'), null);
 	});
 
 	it('node test --all=objects', () => {
 		setArgs('--all=objects');
 		assert.strictEqual(dc('all'), 'objects');
+		assert.strictEqual(dc('list'), null);
 	});
 });

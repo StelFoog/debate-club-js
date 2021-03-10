@@ -8,4 +8,8 @@
 - [x] Handle filename when missing .js as arg
 - [x] Handle filename when index.js file
 - [ ] Some settings
+  - [ ] General
+    - [ ] Eg. first must be...
+    - [ ] Eg. No shared values for non-boolean args
+  - [ ] Specific args
 - [ ] Combo miniflags

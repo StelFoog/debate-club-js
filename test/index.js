@@ -1,5 +1,7 @@
 const dc = require('../debateClub');
 
-// const res = dc({ list: { alias: 'l' } });
+const res = dc({ list: { alias: 'l' } });
 
-console.log(dc('list'));
+console.log(res);
+console.log(process.execPath);
+console.log(require.main.filename);

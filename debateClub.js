@@ -20,6 +20,25 @@ function dc(define) {
 					flags[f] = e;
 				});
 				flagNeedsVal = [];
+			} else if (idx < 2) {
+				if (idx === 0 && e === process.execPath);
+				else if (e === require.main.filename);
+				else {
+					let notCaught = true;
+					const filename = require.main.filename;
+					// No file extention
+					let removeLastChars;
+					for (removeLastChars = 0; removeLastChars < filename.length; removeLastChars++) {
+						if (filename.charAt(filename.length - removeLastChars - 1) === '.') break;
+					}
+					const noExtention = filename.slice(0, -(removeLastChars + 1));
+					if (e === noExtention) notCaught = false;
+					// Folder index file
+					const splt = noExtention.split('/index');
+					if (splt.length > 0 && splt[0] === e) notCaught = false;
+					// If not caught add to args
+					if (notCaught) args.push(e);
+				}
 			} else if (!(idx < 1 && e === process.execPath) && !(idx < 2 && e === require.main.filename))
 				args.push(e);
 		} else if (e.charAt(1) !== '-') {

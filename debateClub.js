@@ -5,6 +5,9 @@ let success = true;
 let error = [];
 
 // define is an object where each key represents an accepted flag
+// each flag takes an object where its attributes are defined
+// special keys, starting with _ define non flag attributes
+// _miniflags takes an object with special miniflag combinations
 function dc(define) {
 	if (typeof define === 'string') return get(define);
 	if (!define || typeof define !== 'object') return fullArgs;
@@ -20,8 +23,26 @@ function dc(define) {
 					flags[f] = e;
 				});
 				flagNeedsVal = [];
-			} else if (!(idx < 1 && e === process.execPath) && !(idx < 2 && e === require.main.filename))
-				args.push(e);
+			} else if (idx < 2) {
+				if (idx === 0 && e === process.execPath);
+				else if (e === require.main.filename);
+				else {
+					let notCaught = true;
+					const filename = require.main.filename;
+					// No file extention
+					let removeLastChars;
+					for (removeLastChars = 0; removeLastChars < filename.length; removeLastChars++) {
+						if (filename.charAt(filename.length - removeLastChars - 1) === '.') break;
+					}
+					const noExtention = filename.slice(0, -(removeLastChars + 1));
+					if (e === noExtention) notCaught = false;
+					// Folder index file
+					const splt = noExtention.split('/index');
+					if (splt.length > 0 && splt[0] === e) notCaught = false;
+					// If not caught add to args
+					if (notCaught) args.push(e);
+				}
+			} else args.push(e);
 		} else if (e.charAt(1) !== '-') {
 			// Handle miniflag(s)
 			const miniflag = e.substr(1);
@@ -42,37 +63,50 @@ function dc(define) {
 				}
 			} else {
 				// Handle multiple miniflags
-				// Go though all miniflags
-				let localFlagNeedsVal = [];
-				for (i = 0; i < miniflag.length; i++) {
-					if (miniflag.charAt(i) === '=' && localFlagNeedsVal.length) {
-						// only flags part of the miniflag collection should get this value
-						const val = miniflag.substr(i + 1);
-						localFlagNeedsVal.forEach((f) => {
-							flags[f] = val;
-						});
-						localFlagNeedsVal = [];
-						break;
-					} else if (miniflag.charAt(i) === '=' && !localFlagNeedsVal.length) {
-						// if miniflag collection contains no non-boolean flags there shouldn't be an equals-sign
-						success = false;
-						error.push('Strange equals-sign with miniflag collection ' + miniflag.substr(0, i));
-						break;
+				const splt = miniflag.split(/=(.+)/);
+				if (define._miniflags && define._miniflags[splt[0]]) {
+					// Handle defined miniflag combo
+					if (define._miniflags[splt[0]].boolean === false) {
+						if (splt.length > 1) flags['-' + splt[0]] = splt[1];
+						else flagNeedsVal.push('-' + splt[0]);
+					} else {
+						flags['-' + splt[0]] = true;
+						if (splt.length > 1)
+							error.push('Strange equals-sign with miniflag collection ' + splt[0]);
 					}
-					for (j = 0; j < keys.length; j++) {
-						if (define[keys[j]].alias == miniflag.charAt(i)) {
-							if (define[keys[j]].boolean === false) localFlagNeedsVal.push(keys[j]);
-							else flags[keys[j]] = true;
+				} else {
+					// Go though all miniflags
+					let localFlagNeedsVal = [];
+					for (i = 0; i < miniflag.length; i++) {
+						if (miniflag.charAt(i) === '=' && localFlagNeedsVal.length) {
+							// only flags part of the miniflag collection should get this value
+							// const val = miniflag.substr(i + 1);
+							localFlagNeedsVal.forEach((f) => {
+								flags[f] = splt[1];
+							});
+							localFlagNeedsVal = [];
+							break;
+						} else if (miniflag.charAt(i) === '=' && !localFlagNeedsVal.length) {
+							// if miniflag collection contains no non-boolean flags there shouldn't be an equals-sign
+							success = false;
+							error.push('Strange equals-sign with miniflag collection ' + splt[0]);
 							break;
 						}
+						for (j = 0; j < keys.length; j++) {
+							if (define[keys[j]].alias == miniflag.charAt(i)) {
+								if (define[keys[j]].boolean === false) localFlagNeedsVal.push(keys[j]);
+								else flags[keys[j]] = true;
+								break;
+							}
+						}
+						if (j >= keys.length) {
+							success = false;
+							error.push(`Miniflag "${miniflag.charAt(i)}" undefined`);
+						}
 					}
-					if (j >= keys.length) {
-						success = false;
-						error.push(`Miniflag "${miniflag.charAt(i)}" undefined`);
-					}
+					if (i >= miniflag.length && localFlagNeedsVal.length)
+						flagNeedsVal.push(...localFlagNeedsVal);
 				}
-				if (i >= miniflag.length && localFlagNeedsVal.length)
-					flagNeedsVal.push(...localFlagNeedsVal);
 			}
 		} else {
 			// Handle normal flag

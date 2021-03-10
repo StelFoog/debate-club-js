@@ -2,7 +2,16 @@
   - **Notes:**
   - Path to node is in `process.execPath`
   - Path to filename is in `require.main.filename`
-  
 - [x] Make tests
 - [x] More and more exaustive testing
   - [x] Test to make sure flags aren't marked by accident
+- [x] Handle filename when missing .js as arg
+- [x] Handle filename when index.js file
+- [ ] Some settings
+  - [ ] General
+    - [ ] Eg. first must be...
+    - [ ] Eg. No shared values for non-boolean args
+  - [ ] Specific args
+- [x] Defined combo miniflags
+  - [ ] Add option for any order
+  - [ ] Add option for also marking regular flags aliases

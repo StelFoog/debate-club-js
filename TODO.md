@@ -12,4 +12,6 @@
     - [ ] Eg. first must be...
     - [ ] Eg. No shared values for non-boolean args
   - [ ] Specific args
-- [ ] Combo miniflags
+- [x] Defined combo miniflags
+  - [ ] Add option for any order
+  - [ ] Add option for also marking regular flags aliases

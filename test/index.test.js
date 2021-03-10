@@ -24,6 +24,11 @@ function init() {
 			alias: 's',
 			boolean: false,
 		},
+		_miniflags: {
+			als: {
+				boolean: false,
+			},
+		},
 	});
 }
 
@@ -124,6 +129,14 @@ describe('do–init tests without errors', () => {
 		assert.strictEqual(dc('stone'), 'ball');
 		assert.strictEqual(res.error.length, 0);
 		assert.deepStrictEqual(res.args, ['stealth', 'close']);
+	});
+
+	it('node test -als toy barn', () => {
+		setArgs('-als toy barn');
+		init();
+		assert.strictEqual(dc('-als'), 'toy');
+		assert.strictEqual(res.error.length, 0);
+		assert.deepStrictEqual(res.args, ['barn']);
 	});
 });
 

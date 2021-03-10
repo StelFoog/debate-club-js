@@ -41,58 +41,58 @@ function dc(define) {
 				}
 			} else if (!(idx < 1 && e === process.execPath) && !(idx < 2 && e === require.main.filename))
 				args.push(e);
-		} else if (e.charAt(1) !== '-') {
-			// Handle miniflag(s)
-			const miniflag = e.substr(1);
-			if (miniflag.length === 1 || miniflag.charAt(1) === '=') {
-				// Handle single miniflag
-				for (i = 0; i < keys.length; i++) {
-					if (define[keys[i]].alias === miniflag.charAt(0)) {
-						if (define[keys[i]].boolean === false) {
-							if (miniflag.charAt(1) === '=') flags[keys[i]] = miniflag.substr(2);
-							else flagNeedsVal.push(keys[i]);
-						} else flags[keys[i]] = true;
-						break;
-					}
-				}
-				if (i >= keys.length) {
-					success = false;
-					error.push(`Miniflag "${miniflag.charAt(0)}" undefined`);
-				}
-			} else {
-				// Handle multiple miniflags
-				// Go though all miniflags
-				let localFlagNeedsVal = [];
-				for (i = 0; i < miniflag.length; i++) {
-					if (miniflag.charAt(i) === '=' && localFlagNeedsVal.length) {
-						// only flags part of the miniflag collection should get this value
-						const val = miniflag.substr(i + 1);
-						localFlagNeedsVal.forEach((f) => {
-							flags[f] = val;
-						});
-						localFlagNeedsVal = [];
-						break;
-					} else if (miniflag.charAt(i) === '=' && !localFlagNeedsVal.length) {
-						// if miniflag collection contains no non-boolean flags there shouldn't be an equals-sign
-						success = false;
-						error.push('Strange equals-sign with miniflag collection ' + miniflag.substr(0, i));
-						break;
-					}
-					for (j = 0; j < keys.length; j++) {
-						if (define[keys[j]].alias == miniflag.charAt(i)) {
-							if (define[keys[j]].boolean === false) localFlagNeedsVal.push(keys[j]);
-							else flags[keys[j]] = true;
-							break;
-						}
-					}
-					if (j >= keys.length) {
-						success = false;
-						error.push(`Miniflag "${miniflag.charAt(i)}" undefined`);
-					}
-				}
-				if (i >= miniflag.length && localFlagNeedsVal.length)
-					flagNeedsVal.push(...localFlagNeedsVal);
-			}
+			// } else if (e.charAt(1) !== '-') {
+			// 	// Handle miniflag(s)
+			// 	const miniflag = e.substr(1);
+			// 	if (miniflag.length === 1 || miniflag.charAt(1) === '=') {
+			// 		// Handle single miniflag
+			// 		for (i = 0; i < keys.length; i++) {
+			// 			if (define[keys[i]].alias === miniflag.charAt(0)) {
+			// 				if (define[keys[i]].boolean === false) {
+			// 					if (miniflag.charAt(1) === '=') flags[keys[i]] = miniflag.substr(2);
+			// 					else flagNeedsVal.push(keys[i]);
+			// 				} else flags[keys[i]] = true;
+			// 				break;
+			// 			}
+			// 		}
+			// 		if (i >= keys.length) {
+			// 			success = false;
+			// 			error.push(`Miniflag "${miniflag.charAt(0)}" undefined`);
+			// 		}
+			// 	} else {
+			// 		// Handle multiple miniflags
+			// 		// Go though all miniflags
+			// 		let localFlagNeedsVal = [];
+			// 		for (i = 0; i < miniflag.length; i++) {
+			// 			if (miniflag.charAt(i) === '=' && localFlagNeedsVal.length) {
+			// 				// only flags part of the miniflag collection should get this value
+			// 				const val = miniflag.substr(i + 1);
+			// 				localFlagNeedsVal.forEach((f) => {
+			// 					flags[f] = val;
+			// 				});
+			// 				localFlagNeedsVal = [];
+			// 				break;
+			// 			} else if (miniflag.charAt(i) === '=' && !localFlagNeedsVal.length) {
+			// 				// if miniflag collection contains no non-boolean flags there shouldn't be an equals-sign
+			// 				success = false;
+			// 				error.push('Strange equals-sign with miniflag collection ' + miniflag.substr(0, i));
+			// 				break;
+			// 			}
+			// 			for (j = 0; j < keys.length; j++) {
+			// 				if (define[keys[j]].alias == miniflag.charAt(i)) {
+			// 					if (define[keys[j]].boolean === false) localFlagNeedsVal.push(keys[j]);
+			// 					else flags[keys[j]] = true;
+			// 					break;
+			// 				}
+			// 			}
+			// 			if (j >= keys.length) {
+			// 				success = false;
+			// 				error.push(`Miniflag "${miniflag.charAt(i)}" undefined`);
+			// 			}
+			// 		}
+			// 		if (i >= miniflag.length && localFlagNeedsVal.length)
+			// 			flagNeedsVal.push(...localFlagNeedsVal);
+			// 	}
 		} else {
 			// Handle normal flag
 			const longflag = e.substr(2).split('=');

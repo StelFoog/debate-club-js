@@ -216,3 +216,22 @@ describe('no-init tests', () => {
 		assert.strictEqual(dc('list'), null);
 	});
 });
+
+describe('System tests', () => {
+	beforeEach(() => {
+		process.argv = JSON.parse(JSON.stringify(execArgs));
+		process.execPath = execArgs[0];
+		require.main.filename = execArgs[1];
+	});
+
+	afterEach(() => {
+		dc.reset();
+	});
+
+	it('no file extention', () => {
+		process.argv[1] = 'test';
+		init();
+		assert.strictEqual(res.args.length, 0);
+		assert.strictEqual(res.error.length, 0);
+	});
+});
